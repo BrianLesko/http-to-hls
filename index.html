@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Cam</title>
+    <style>
+      /* Adjust video size */
+      #video {
+        max-width: 100%; /* Ensure the video doesn't exceed the width of its container */
+        height: auto; /* Maintain aspect ratio */
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video" autoplay="true" controls="controls"></video>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+      if (Hls.isSupported()) {
+        var video = document.getElementById('video');
+        var hls = new Hls();
+        // bind them together
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+          console.log("video and hls.js are now bound together !");
+          hls.loadSource("http://localhost:8080/hls/index.m3u8");
+          hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+            console.log("manifest loaded, found " + data.levels.length + " quality level");
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
