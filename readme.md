@@ -17,6 +17,7 @@ This code uses the following libraries:
 
 ## Usage
 1. Run your http live camera feed, and get its url
+    If you need code to host a http live camera feed look [here](https://github.com/BrianLesko/http-camera-server-python)
 2. replace the URL in start.sh with your live camera url
 3. run the ffmpeg command in start.sh
 4. run the nginx server with the commands in start_docker.sh
