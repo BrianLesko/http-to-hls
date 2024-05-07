@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HLS Stream</title>
+    <script src="js/hls.min.js"></script> <!-- Local reference to Hls.js -->
+</head>
+<body>
+    <video id="video" controls></video>
+    <script>
+        var video = document.getElementById('video');
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource('http://192.168.129.60:8080'); // Ensure this is also accessible offline
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'path/to/your/playlist.m3u8';
+            video.addEventListener('canplay', () => video.play());
+        }
+    </script>
+</body>
+</html>
